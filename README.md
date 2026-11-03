@@ -2,6 +2,8 @@
 
 ![Quantum Casino data flow: the registration site writes users, the NFC readers write nfc_reads, and the leaderboard shows running totals from Supabase](data-flow.png)
 
+Please also see /example-video for videos of working reader interaction with site. 
+
 The wall-screen leaderboard for an immersive quantum casino. Guests wear an NFC wristband; every tap at a game's reader is worth 100 points, and this board shows the top 10 by total, live, in a HUD style built to be read from across the room.
 
 Spec: [AGENTS.md](AGENTS.md) · Plans: [docs/supabase-worker-plan.md](docs/supabase-worker-plan.md) (data layer, Assignment 5) and [docs/leaderboard-plan.md](docs/leaderboard-plan.md) (UI, Phase 1) · Task board: [kanban-list.md](kanban-list.md) · Diagram: [data-flow.png](data-flow.png)

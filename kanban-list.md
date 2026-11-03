@@ -50,6 +50,7 @@ Rules: every task from any planning session or prompt gets a row; update the sta
 | 33 | User: `NEXT_PUBLIC_SUPABASE_URL` / `NEXT_PUBLIC_SUPABASE_ANON_KEY` added to `apps/web/.env` (done); on Vercel set Root Directory `apps/web` + the same env vars; push `main` | IN PROGRESS |
 | 34 | User: give the cron job its credential, once, in the SQL Editor: `select vault.create_secret('<secret key>', 'worker_key');` (the agent's secret-store write was blocked by the auto-mode permission classifier) | TO DO |
 | 35 | Add `data-flow.png` at the top of the README | COMPLETE |
+| 36 | Register the two real wristbands in `users`: `47:56:6A:E7` → LXM (lattice), `5D:0C:8C:8E` → Art3mis (orbital); they were showing as GUEST-6AE7 / GUEST-8C8E | COMPLETE |
 
 ## Backlog — Phase 2 (remaining)
 | # | Task | Status |
