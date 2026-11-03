@@ -52,6 +52,7 @@ Rules: every task from any planning session or prompt gets a row; update the sta
 | 35 | Add `data-flow.png` at the top of the README | COMPLETE |
 | 36 | Register the two real wristbands in `users`: `47:56:6A:E7` → LXM (lattice), `5D:0C:8C:8E` → Art3mis (orbital); they were showing as GUEST-6AE7 / GUEST-8C8E | COMPLETE |
 | 37 | Vercel deploy showed React #441 ("An error occurred in the Server Components render") because the project had no env vars. Code side done: `BoardFault` renders the reason inside the board; `turbopack.root` pinned to `apps/web`. User side: add `NEXT_PUBLIC_SUPABASE_URL` + `NEXT_PUBLIC_SUPABASE_ANON_KEY` in Vercel → Redeploy — resolved after the env vars + redeploy; BoardFault and turbopack.root changes still to be committed | COMPLETE |
+| 38 | Write `DEPLOYMENT.md`: brief from-scratch steps for Supabase (SQL, worker deploy, cron + Vault key), readers, local env, Vercel (root dir + env vars), guest registration; linked from the README | COMPLETE |
 
 ## Backlog — Phase 2 (remaining)
 | # | Task | Status |
