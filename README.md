@@ -6,6 +6,8 @@ Please also see /example-video for videos of working reader interaction with sit
 
 The wall-screen leaderboard for an immersive quantum casino. Guests wear an NFC wristband; every tap at a game's reader is worth 100 points, and this board shows the top 10 by total, live, in a HUD style built to be read from across the room.
 
+I looked for a live data api that would allow me to emulate this behavior but I couln't find one. Claude suggested I just rename events from something like the divi api and fake it, which would have worked, but I thought it would be more fun to build the hardware myself and create my own worker that reads from the database that records the scans, so I did that instead. 
+
 Spec: [AGENTS.md](AGENTS.md) · Plans: [docs/supabase-worker-plan.md](docs/supabase-worker-plan.md) (data layer, Assignment 5) and [docs/leaderboard-plan.md](docs/leaderboard-plan.md) (UI, Phase 1) · Task board: [kanban-list.md](kanban-list.md) · Diagram: [data-flow.png](data-flow.png)
 
 ## How the data flows
