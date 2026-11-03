@@ -1,5 +1,7 @@
 # Quantum Casino Leaderboard — Front-End Plan (Phase 1)
 
+> **2026-11-02:** the data layer described below (mock source, `LeaderboardSource`, `MOCK_*` env) was replaced by the Supabase worker + Realtime design in [supabase-worker-plan.md](supabase-worker-plan.md); the UI sections still apply.
+
 ## Context
 
 [AGENTS.md](AGENTS.md) specifies a leaderboard for an immersive quantum casino with five games (Uncertainty, Plinko, 17, Quant'em, Quabble). Players wear an NFC wristband; each game writes a score to the player's record. The board shows username, avatar, score per game and total, ranked by total, top 10, leader on top, in a clean HUD / Iron-Man / quantum-computing style, built on Next.js and hosted on Vercel.

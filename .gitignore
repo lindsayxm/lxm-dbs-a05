@@ -1,28 +1,28 @@
-# Environments
+# Environments (any depth). .env.example is the committed template.
 .env
 .env*
+!.env.example
 .venv
 .venv*
-.toml
 env/
 venv/
 ENV/
 env.bak/
 venv.bak/
 
-# Next.js (merged from create-next-app)
-/node_modules
-/.pnp
+# Next.js (apps/web)
+node_modules/
+.pnp
 .pnp.*
 .yarn/*
 !.yarn/patches
 !.yarn/plugins
 !.yarn/releases
 !.yarn/versions
-/coverage
-/.next/
-/out/
-/build
+coverage/
+.next/
+out/
+build/
 .DS_Store
 *.pem
 npm-debug.log*
@@ -32,3 +32,6 @@ yarn-error.log*
 .vercel
 *.tsbuildinfo
 next-env.d.ts
+
+# Supabase CLI (project link lives in .temp)
+supabase/.temp/

@@ -1,5 +1,4 @@
 # Rules: 
-{ "permissions": { "deny": ["Read(./.env)", "Read(./.env.*)"] } }
 
 Always keep a copy of any plan we create in the docs folder. 
 

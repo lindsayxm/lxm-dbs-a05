@@ -1,34 +1,21 @@
 {
-  "name": "quantum-casino-leaderboard",
-  "version": "0.1.0",
+  "name": "quantum-casino",
   "private": true,
+  "description": "Monorepo: apps/web (Next.js leaderboard, deployed on Vercel) + supabase/ (worker Edge Function, SQL).",
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "eslint .",
-    "test": "vitest run",
-    "typecheck": "next typegen && tsc --noEmit",
-    "shots": "node scripts/screenshot.mjs"
-  },
-  "dependencies": {
-    "motion": "^14.8.0",
-    "next": "16.4.3",
-    "react": "19.3.0",
-    "react-dom": "19.3.0",
-    "server-only": "^0.0.1",
-    "swr": "^2.5.1"
+    "web:dev": "npm --prefix apps/web run dev",
+    "web:build": "npm --prefix apps/web run build",
+    "web:start": "npm --prefix apps/web run start",
+    "web:test": "npm --prefix apps/web test",
+    "web:check": "npm --prefix apps/web run lint && npm --prefix apps/web run typecheck && npm --prefix apps/web test",
+    "supabase:link": "supabase link --project-ref",
+    "worker:deploy": "supabase functions deploy score-taps --use-api --no-verify-jwt --yes",
+    "worker:secret": "supabase secrets set --yes WORKER_SECRET=",
+    "worker:logs": "supabase functions logs score-taps",
+    "db:sql": "supabase db query --remote --yes -f",
+    "db:status": "supabase db query --remote --read-only \"select (select count(*) from public.nfc_reads) as taps, (select count(*) from public.scores) as score_rows, (select count(*) from public.users) as users, (select last_run_at from public.worker_state) as worker_last_run, (select last_message from public.worker_state) as worker_message\""
   },
   "devDependencies": {
-    "@tailwindcss/turbopack": "^4",
-    "@types/node": "^22.20.5",
-    "@types/react": "^19",
-    "@types/react-dom": "^19",
-    "eslint": "^9",
-    "eslint-config-next": "16.4.3",
-    "playwright": "^1.64.1",
-    "tailwindcss": "^4",
-    "typescript": "^5",
-    "vitest": "^5.0.5"
+    "supabase": "^3.0.0"
   }
 }

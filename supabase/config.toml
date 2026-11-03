@@ -1,0 +1,10 @@
+# Supabase CLI config for this repo (the worker lives in functions/). The link to the hosted project is
+# created with `npm run supabase:link -- <project-ref>` and kept in supabase/.temp (git-ignored).
+project_id = "lxm-dbs-a05"
+
+[functions.score-taps]
+enabled = true
+# Supabase Cron calls the function with the project's secret key in the `apikey` header.
+# The platform's JWT check is off; the function verifies that key itself (see index.ts).
+verify_jwt = false
+entrypoint = "./functions/score-taps/index.ts"

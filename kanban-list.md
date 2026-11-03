@@ -31,10 +31,30 @@ Rules: every task from any planning session or prompt gets a row; update the sta
 | 18 | Create the GitHub repo, push `main`, import the repo in Vercel (framework auto-detected, no env vars needed for the mock) | TO DO |
 | 19 | Decide per-game score semantics with the game builders (best-of vs latest; the board sums one score per game) | TO DO |
 
-## Backlog — Phase 2 (backend, not yet planned)
+## 2026-11-02 — Supabase worker + Realtime (Assignment 5) — see docs/supabase-worker-plan.md
 | # | Task | Status |
 |---|------|--------|
-| 14 | SupabaseLeaderboardSource implementing LeaderboardSource (players + scores tables, migration SQL) | TO DO |
-| 15 | POST /api/scores ingest endpoint for game stations (shared secret), wristband id → player | TO DO |
-| 16 | Realtime push (Supabase Realtime or SSE) replacing polling | TO DO |
-| 17 | Check-in screen: username + avatar pick when a wristband is issued | TO DO |
+| 20 | Monorepo: move the Next.js app to `apps/web`, root `package.json` scripts, root `.gitignore` fixed for nested app, `.env` moved to `apps/web/.env` | COMPLETE |
+| 21 | `users` table (uid, user_nm, avatar) schema + 20-row seed matching `seed.sql` (`supabase/migrations/…_users.sql`, `supabase/seed_users.sql`) | COMPLETE |
+| 22 | `tap_counts` view, `scores` + `worker_state` tables, RLS select policies, Realtime publication (`supabase/migrations/…_scores_worker.sql`) | COMPLETE |
+| 23 | Worker: Edge Function `supabase/functions/score-taps` (+100 per tap, reader → game map, idempotent diff + upsert, heartbeat, secret-key auth) + `supabase/config.toml` | COMPLETE |
+| 24 | Supabase Cron schedule template with Vault secrets, every 10 s (`supabase/schedule.sql`) | COMPLETE |
+| 25 | Web env (`SUPABASE_*` / `NEXT_PUBLIC_SUPABASE_*`), server + browser Supabase clients, `.env.example` | COMPLETE |
+| 26 | Web: `readers.ts`, pure `scoring.ts` (guests, joinedAt, ranking) + Vitest, `getSnapshot` (paged reads), route 502 on failure, `BoardLoader` | COMPLETE |
+| 27 | Web: Realtime subscription hook → refetch, 15 s fallback poll, header pill LIVE·PUSH/POLL · STALE · LINK LOST · WORKER IDLE | COMPLETE |
+| 28 | Remove mock code (`MockLeaderboardSource`, `mockPlayers`, `prng`, `getSource`, `LeaderboardSource`, `MOCK_*` env) | COMPLETE |
+| 29 | README (monorepo, data flow, setup order, env, worker ops, Vercel), docs copy of the plan, this kanban | COMPLETE |
+| 30 | Verify: lint + typecheck + test + build green; `npm run shots` OK at 1080p/4K; worker run by hand = 32,700 points for 327 taps; `npm run push-check`: Realtime push moved the board 1.9 s after the worker wrote with polling off, and reverted after the tap was deleted. Cron runs still 401 until row 34 | COMPLETE |
+| 31 | User: `npx supabase login`; agent: linked project `mvzxhimadnjebnnkciet` (esp32c3-pn532-nfc), deployed `score-taps` (accepts a project secret key or `WORKER_SECRET`), enabled pg_cron + pg_net, scheduled the 10 s job | COMPLETE |
+| 32 | SQL applied to the project through the CLI (`supabase db query --remote`): `…_users.sql`, `seed_users.sql`, `…_scores_worker.sql`, `schedule.sql` (extensions + job) | COMPLETE |
+| 33 | User: `NEXT_PUBLIC_SUPABASE_URL` / `NEXT_PUBLIC_SUPABASE_ANON_KEY` added to `apps/web/.env` (done); on Vercel set Root Directory `apps/web` + the same env vars; push `main` | IN PROGRESS |
+| 34 | User: give the cron job its credential, once, in the SQL Editor: `select vault.create_secret('<secret key>', 'worker_key');` (the agent's secret-store write was blocked by the auto-mode permission classifier) | TO DO |
+| 35 | Add `data-flow.png` at the top of the README | COMPLETE |
+
+## Backlog — Phase 2 (remaining)
+| # | Task | Status |
+|---|------|--------|
+| 14 | SupabaseLeaderboardSource implementing LeaderboardSource (players + scores tables, migration SQL) — done as `getSnapshot` over `users` + `scores` (2026-11-02 section) | COMPLETE |
+| 15 | POST /api/scores ingest endpoint for game stations (shared secret), wristband id → player — superseded: the readers write `nfc_reads` directly (a05-live-data firmware / serial bridge) | COMPLETE |
+| 16 | Realtime push (Supabase Realtime or SSE) replacing polling — built in the 2026-11-02 section (push + 15 s fallback poll) | COMPLETE |
+| 17 | Check-in screen: username + avatar pick when a wristband is issued (the "User Registration Site" in data-flow.png; writes `users`) | TO DO |
