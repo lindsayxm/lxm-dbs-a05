@@ -2,7 +2,7 @@
 
 import { QubitMotif } from "@/components/shell/QubitMotif";
 
-/** Render-time failures (Supabase unreachable, SUPABASE_URL / SUPABASE_ANON_KEY missing) land here instead of a blank wall. */
+/** Unexpected render-time failures land here instead of a blank wall (data-source failures render BoardFault inside the board instead). */
 export default function ErrorPage({ error, reset }: { error: Error & { digest?: string }; reset: () => void }) {
   return (
     <main className="grid h-dvh place-items-center px-4">

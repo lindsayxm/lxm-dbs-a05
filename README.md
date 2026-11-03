@@ -130,6 +130,15 @@ Next.js 16 (App Router, Turbopack, Cache Components on), React 19, Tailwind v4, 
 - **Page** — header and footer are the prerendered static shell; `BoardLoader` reads the first snapshot at request time (`io()` under `Suspense`) and hands it to `LiveLeaderboard`, which refetches on Realtime pushes and on the fallback poll. `BoardTable` animates reorders, count-ups, the ▲/▼ rank delta and the leader's crown. `LiveIndicator` reads a tiny store written by the fetcher and the socket.
 - **Design tokens / avatars / kiosk** — unchanged from Phase 1: `src/app/globals.css`, `src/components/avatars/glyphs.tsx`, `src/components/shell/Kiosk.tsx` (cursor hides, `F` for fullscreen, reload every 6 h).
 
+## Troubleshooting
+
+| Symptom | Cause | Fix |
+|---|---|---|
+| Deployed page shows `SIGNAL FAULT · Supabase is not configured` (older builds: `Minified React error #441`) | The Vercel project has no Supabase env vars, so the server-side read fails | Vercel → Settings → Environment Variables: add `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_ANON_KEY` for all environments, then Deployments → Redeploy (`NEXT_PUBLIC_` values are inlined at build time) |
+| `/api/leaderboard` answers 502 naming a table | The SQL in `supabase/migrations` has not been applied | `npm run db:sql -- supabase/migrations/<file>.sql` (or paste it into the SQL Editor) |
+| Header shows `WORKER IDLE` | The cron job is not reaching or not authenticating with the function | `select status_code, content::text from net._http_response order by id desc limit 5;` — a 401 means `worker_key` is missing from Vault (see `supabase/schedule.sql`) |
+| Header shows `LIVE · POLL` instead of `PUSH` | The browser has no `NEXT_PUBLIC_SUPABASE_*` values, or Realtime is off for the tables | Set the two variables; check Database → Publications → `supabase_realtime` lists `scores` and `users` |
+
 ## Wall screen setup
 
 Use a small PC / Raspberry Pi / Chromecast running Chromium rather than a TV's built-in browser (Next 16 targets Chrome 111+). Launch in kiosk mode and the board fills the screen:
